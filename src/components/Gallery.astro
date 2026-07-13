@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import stage1 from '../assets/photos/stage-1.jpg';
+import stage2 from '../assets/photos/stage-2.jpg';
+import crowd from '../assets/photos/crowd.jpg';
+import coverWide from '../assets/photos/cover-wide.jpg';
+import live1 from '../assets/photos/live-1.jpg';
+import live2 from '../assets/photos/live-2.jpg';
+import live3 from '../assets/photos/live-3.jpg';
+
+const photos = [
+  { src: live3, alt: 'La Familia Salsa Band on a festival stage', wide: true },
+  { src: stage1, alt: 'Brass section under stage lights' },
+  { src: crowd, alt: 'Dancing crowd at a La Familia concert' },
+  { src: live1, alt: 'La Familia performing live' },
+  { src: live2, alt: 'Vocalists of La Familia Salsa Band' },
+  { src: coverWide, alt: 'The band lined up on stage', wide: true },
+  { src: stage2, alt: 'Full band playing at an evening show' },
+];
+---
+
+<section id="gallery" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Gallery</p>
+      <h2>From the stage</h2>
+    </div>
+
+    <div class="grid">
+      {photos.map(({ src, alt, wide }) => (
+        <figure class:list={[{ wide }]}>
+          <Image
+            src={src}
+            widths={[480, 800, 1200]}
+            sizes={wide ? '(max-width: 40rem) 100vw, 66vw' : '(max-width: 40rem) 100vw, 33vw'}
+            alt={alt}
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  figure {
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+
+  figure.wide {
+    grid-column: span 2;
+  }
+
+  .grid :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 3 / 2;
+    transition: transform 400ms ease;
+  }
+
+  figure:hover :global(img) {
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 40rem) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+
+    figure.wide {
+      grid-column: auto;
+    }
+  }
+</style>

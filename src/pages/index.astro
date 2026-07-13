@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Music from '../components/Music.astro';
+import Videos from '../components/Videos.astro';
+import Concerts from '../components/Concerts.astro';
+import Gallery from '../components/Gallery.astro';
+import Organizers from '../components/Organizers.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+const description =
+  'La Familia Salsa Band — Prague-based orchestra playing Cuban salsa, Dominican bachata and cha-cha-cha. Live latin music, dance animations and lessons for festivals, weddings and parties in Czechia and Germany.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{site.name} — {site.tagline}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={Astro.site} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={site.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.site} />
+    <meta name="theme-color" content="#120b08" />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <Hero />
+      <About />
+      <Music />
+      <Videos />
+      <Concerts />
+      <Gallery />
+      <Organizers />
+    </main>
+    <Footer />
+  </body>
+</html>

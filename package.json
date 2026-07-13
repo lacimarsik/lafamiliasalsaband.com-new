@@ -1,0 +1,17 @@
+{
+  "name": "lafamiliasalsaband.com",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.2.5",
+    "@fontsource/abril-fatface": "^5.2.5",
+    "astro": "^5.12.0",
+    "sharp": "^0.34.2"
+  }
+}
