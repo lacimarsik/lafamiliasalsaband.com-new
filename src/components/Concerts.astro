@@ -1,0 +1,204 @@
+---
+import { upcoming, past, yearOf, formatDate } from '../data/concerts';
+import { site } from '../data/site';
+
+const today = new Date();
+const upcomingConcerts = upcoming(today);
+const pastConcerts = past(today);
+
+const byYear = new Map<string, typeof pastConcerts>();
+for (const concert of pastConcerts) {
+  const year = yearOf(concert);
+  if (!byYear.has(year)) byYear.set(year, []);
+  byYear.get(year)!.push(concert);
+}
+const years = [...byYear.keys()];
+---
+
+<section id="concerts" class="section section--alt">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Concerts</p>
+      <h2>{upcomingConcerts.length > 0 ? 'Next up' : 'Booking now'}</h2>
+      <p>
+        Fresh dates are announced first on our
+        <a href={site.socials.facebook}>Facebook page</a> — come see us live!
+      </p>
+    </div>
+
+    {
+      upcomingConcerts.length > 0 ? (
+        <ul class="upcoming">
+          {upcomingConcerts.map((concert) => (
+            <li>
+              <span class="date">{formatDate(concert)}</span>
+              <span class="what">
+                {concert.title}
+                {concert.country === 'DE' && <span class="flag" title="Germany"> 🇩🇪</span>}
+              </span>
+              <span class="place">{concert.place}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="booking-open">
+          <p>
+            No public dates on the calendar right now — the stage is yours.
+            <a href="#contact">Book La Familia</a> for your festival, wedding or
+            party.
+          </p>
+        </div>
+      )
+    }
+
+    <div class="archive">
+      <h3>A decade on stage</h3>
+      {years.map((year, index) => (
+        <details open={index < 2}>
+          <summary>
+            <span class="year">{year}</span>
+            <span class="count">
+              {byYear.get(year)!.length} {byYear.get(year)!.length === 1 ? 'show' : 'shows'}
+            </span>
+          </summary>
+          <ul>
+            {byYear.get(year)!.map((concert) => (
+              <li>
+                <span class="date">{formatDate(concert)}</span>
+                <span class="what">
+                  {concert.title}
+                  {concert.note && <span class="note"> · {concert.note}</span>}
+                  {concert.country === 'DE' && <span class="flag" title="Germany"> 🇩🇪</span>}
+                </span>
+                <span class="place">{concert.place}</span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .booking-open {
+    max-width: 40rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--brass);
+    border-radius: 8px;
+    color: var(--cream-dim);
+  }
+
+  .upcoming {
+    list-style: none;
+    max-width: 46rem;
+  }
+
+  .archive {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .archive h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  details {
+    border-top: 1px solid var(--line);
+  }
+
+  details:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  summary {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.9rem 0.25rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::before {
+    content: '+';
+    color: var(--brass);
+    font-weight: 640;
+    width: 1rem;
+  }
+
+  details[open] summary::before {
+    content: '–';
+  }
+
+  summary:hover .year {
+    color: var(--brass-hi);
+  }
+
+  .year {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--brass);
+  }
+
+  .count {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-faint);
+  }
+
+  ul {
+    list-style: none;
+    padding-bottom: 1rem;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr auto;
+    gap: 0.4rem 1.25rem;
+    padding: 0.55rem 0.25rem 0.55rem 1.25rem;
+  }
+
+  li + li {
+    border-top: 1px dashed rgba(217, 164, 65, 0.08);
+  }
+
+  .date {
+    color: var(--brass);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .what {
+    color: var(--cream-dim);
+  }
+
+  .note {
+    color: var(--cream-faint);
+  }
+
+  .place {
+    color: var(--cream-faint);
+    font-size: 0.92rem;
+    text-align: right;
+  }
+
+  @media (max-width: 40rem) {
+    li {
+      grid-template-columns: 1fr;
+      padding-left: 1rem;
+    }
+
+    .place {
+      text-align: left;
+    }
+  }
+</style>

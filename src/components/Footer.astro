@@ -1,0 +1,133 @@
+---
+import ClaveDivider from './ClaveDivider.astro';
+import { site } from '../data/site';
+
+const socials = [
+  { href: site.socials.facebook, label: 'Facebook' },
+  { href: site.socials.instagram, label: 'Instagram' },
+  { href: site.socials.youtube, label: 'YouTube' },
+  { href: site.socials.tiktok, label: 'TikTok' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer id="contact" class="section footer">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Contact</p>
+      <h2>Let's get your party dancing</h2>
+      <p>
+        Live latin music, dance animations or salsa &amp; bachata lessons — the
+        best program for your birthday, wedding, festival, hotel or club night.
+        We're not only musicians but also dance instructors at
+        <a href={site.links.danceDifferent}>DanceDifferent</a> and
+        <a href={site.links.dance4water}>Dance4Water Prague</a>.
+      </p>
+    </div>
+
+    <a class="email" href={`mailto:${site.email}`}>{site.email}</a>
+
+    <div class="details">
+      <p>
+        <a href={`tel:${site.phoneOrganization.replaceAll(' ', '')}`}>{site.phoneOrganization}</a>
+        <span class="role">organization</span>
+      </p>
+      <p>
+        <a href={`tel:${site.phoneBandleader.replaceAll(' ', '')}`}>{site.phoneBandleader}</a>
+        <span class="role">bandleader</span>
+      </p>
+    </div>
+
+    <ul class="socials">
+      {socials.map(({ href, label }) => (
+        <li><a href={href}>{label}</a></li>
+      ))}
+    </ul>
+
+    <div class="bottom">
+      <ClaveDivider />
+      <p>© {year} La Familia Salsa Band · Prague</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    padding-bottom: 2.5rem;
+  }
+
+  .email {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.6rem);
+    color: var(--brass);
+    text-decoration: none;
+    border-bottom: 2px solid rgba(217, 164, 65, 0.35);
+    padding-bottom: 0.2rem;
+  }
+
+  .email:hover {
+    color: var(--brass-hi);
+    border-bottom-color: var(--brass-hi);
+  }
+
+  .details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2.5rem;
+    margin-top: 1.6rem;
+  }
+
+  .details a {
+    color: var(--cream);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .details a:hover {
+    color: var(--brass-hi);
+  }
+
+  .role {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-faint);
+  }
+
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    list-style: none;
+    margin-top: 2rem;
+  }
+
+  .socials a {
+    font-size: 0.9rem;
+    font-weight: 580;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+  }
+
+  .socials a:hover {
+    color: var(--brass-hi);
+  }
+
+  .bottom {
+    margin-top: clamp(3rem, 7vw, 5rem);
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .bottom p {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--cream-faint);
+  }
+</style>

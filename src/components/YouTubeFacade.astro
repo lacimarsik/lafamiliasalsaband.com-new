@@ -1,0 +1,102 @@
+---
+/**
+ * Click-to-load YouTube embed: renders the video thumbnail with a play
+ * button and swaps in the iframe only on click, keeping initial page
+ * load fast and free of YouTube cookies.
+ */
+interface Props {
+  id: string;
+  title: string;
+  /** Use the higher-resolution thumbnail (featured/promo slots) */
+  large?: boolean;
+}
+
+const { id, title, large = false } = Astro.props;
+const thumb = `https://i.ytimg.com/vi/${id}/${large ? 'maxresdefault' : 'hqdefault'}.jpg`;
+---
+
+<button class="facade" data-youtube-id={id} data-title={title}>
+  <img src={thumb} alt="" loading="lazy" />
+  <span class="badge" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="22" height="22">
+      <path d="M8 5v14l11-7z" fill="currentColor" />
+    </svg>
+  </span>
+  <span class="label">{title}</span>
+</button>
+
+<style>
+  .facade {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 300ms ease, opacity 300ms ease;
+    opacity: 0.88;
+  }
+
+  .facade:hover img {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+
+  .badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--ink) 72%, transparent);
+    border: 1px solid var(--brass);
+    color: var(--brass);
+    transition: background 150ms ease, color 150ms ease;
+  }
+
+  .facade:hover .badge {
+    background: var(--brass);
+    color: var(--ink);
+  }
+
+  .label {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: 1.6rem 1rem 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 560;
+    color: var(--cream);
+    background: linear-gradient(to top, rgba(18, 11, 8, 0.92), transparent);
+  }
+</style>
+
+<script>
+  document.addEventListener('click', (event) => {
+    const facade = (event.target as HTMLElement).closest<HTMLElement>('[data-youtube-id]');
+    if (!facade) return;
+
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${facade.dataset.youtubeId}?autoplay=1`;
+    iframe.title = facade.dataset.title ?? 'YouTube video';
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.className = 'youtube-frame';
+    facade.replaceWith(iframe);
+  });
+</script>

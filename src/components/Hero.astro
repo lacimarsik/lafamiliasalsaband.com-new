@@ -1,0 +1,115 @@
+---
+import { Picture } from 'astro:assets';
+import heroPhoto from '../assets/photos/hero.jpg';
+---
+
+<section id="top" class="hero">
+  <Picture
+    src={heroPhoto}
+    widths={[720, 1280, 1920, 2560]}
+    sizes="100vw"
+    formats={['avif', 'webp']}
+    alt="La Familia Salsa Band performing live on stage"
+    class="hero-photo"
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="scrim" aria-hidden="true"></div>
+
+  <div class="hero-content wrap">
+    <p class="eyebrow reveal">Prague &middot; est. 2015</p>
+    <h1>
+      <span class="reveal reveal-2">La Familia</span>
+      <span class="reveal reveal-3">Salsa Band</span>
+    </h1>
+    <p class="lede reveal reveal-4">
+      Cuban salsa, Dominican bachata and cha-cha-cha — a ten-piece orchestra
+      with two lead vocalists that gets the whole room dancing.
+    </p>
+    <div class="cta reveal reveal-5">
+      <a class="btn btn--solid" href="#contact">Book the band</a>
+      <a class="btn btn--ghost" href="#videos">Watch the promo</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    padding-block: clamp(5rem, 12vh, 8rem);
+    overflow: hidden;
+  }
+
+  .hero :global(.hero-photo) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(18, 11, 8, 0.55), rgba(18, 11, 8, 0.15) 40%, rgba(18, 11, 8, 0.92) 92%),
+      linear-gradient(75deg, rgba(18, 11, 8, 0.6), transparent 55%);
+  }
+
+  .hero-content {
+    position: relative;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: clamp(3.2rem, 10vw, 7.5rem);
+    color: var(--cream);
+    text-wrap: balance;
+  }
+
+  h1 span {
+    display: block;
+  }
+
+  h1 span:last-child {
+    color: var(--brass);
+  }
+
+  .lede {
+    max-width: 44ch;
+    margin-top: 1.4rem;
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    color: var(--cream-dim);
+  }
+
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2.2rem;
+  }
+
+  .reveal {
+    animation: rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .reveal-2 { animation-delay: 120ms; }
+  .reveal-3 { animation-delay: 240ms; }
+  .reveal-4 { animation-delay: 380ms; }
+  .reveal-5 { animation-delay: 500ms; }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

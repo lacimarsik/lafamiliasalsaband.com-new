@@ -1,0 +1,46 @@
+---
+import YouTubeFacade from './YouTubeFacade.astro';
+import { promoVideo, concertVideos } from '../data/videos';
+import { site } from '../data/site';
+---
+
+<section id="videos" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Videos</p>
+      <h2>See the band in action</h2>
+      <p>
+        More live recordings and reels on
+        <a href={site.socials.youtube}>YouTube</a> and
+        <a href={site.socials.instagram}>Instagram</a>.
+      </p>
+    </div>
+
+    <div class="featured">
+      <YouTubeFacade id={promoVideo.id} title={promoVideo.title} large />
+    </div>
+
+    <div class="grid">
+      {concertVideos.map((video) => <YouTubeFacade id={video.id} title={video.title} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured {
+    margin-bottom: 1.5rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  :global(.youtube-frame) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+</style>

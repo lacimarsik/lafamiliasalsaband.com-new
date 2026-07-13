@@ -1,0 +1,92 @@
+---
+import { site } from '../data/site';
+
+const riders = [
+  {
+    href: '/rider/technical-rider-en.pdf',
+    lang: 'English',
+    label: 'Technical rider (EN)',
+  },
+  {
+    href: '/rider/technical-rider-cz.pdf',
+    lang: 'Czech',
+    label: 'Technický rider (CZ)',
+  },
+];
+---
+
+<section id="organizers" class="section section--alt">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">For organizers</p>
+      <h2>Stage, sound &amp; logistics</h2>
+      <p>
+        The orchestra performs with up to ten musicians — singers, piano, bass,
+        guitar, brass and percussion — and we guarantee at least eight on stage.
+        We're happy to discuss the setup with you or your sound engineer.
+      </p>
+    </div>
+
+    <div class="cards">
+      {riders.map(({ href, lang, label }) => (
+        <a class="card" href={href} download>
+          <span class="kind">PDF · {lang}</span>
+          <span class="title">{label}</span>
+          <span class="hint">Download ↓</span>
+        </a>
+      ))}
+
+      <div class="card card--contact">
+        <span class="kind">Production contact</span>
+        <span class="title">{site.phoneOrganization}</span>
+        <span class="hint">organization · <a href={`tel:${site.phoneBandleader.replaceAll(' ', '')}`}>{site.phoneBandleader}</a> bandleader</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.25rem;
+    max-width: 56rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.4rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--cream);
+    transition: border-color 150ms ease, transform 150ms ease;
+  }
+
+  a.card:hover {
+    border-color: var(--brass);
+    transform: translateY(-2px);
+    color: var(--cream);
+  }
+
+  .kind {
+    font-size: 0.75rem;
+    font-weight: 620;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  .title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+  }
+
+  .hint {
+    font-size: 0.88rem;
+    color: var(--cream-faint);
+  }
+</style>

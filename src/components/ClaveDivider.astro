@@ -1,0 +1,36 @@
+---
+/**
+ * Section divider shaped as the 3-2 son clave: five hits on a 16-step
+ * grid (steps 1, 4, 7, 11, 13). The silent steps render as faint ticks.
+ */
+const CLAVE_HITS = [0, 3, 6, 10, 12];
+const steps = Array.from({ length: 16 }, (_, i) => CLAVE_HITS.includes(i));
+---
+
+<div class="clave" role="separator" aria-hidden="true">
+  {steps.map((hit) => <span class:list={['step', { hit }]} />)}
+</div>
+
+<style>
+  .clave {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    align-items: center;
+    justify-items: center;
+    width: min(22rem, 60vw);
+    margin-inline: auto;
+  }
+
+  .step {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+
+  .step.hit {
+    width: 8px;
+    height: 8px;
+    background: var(--brass);
+  }
+</style>
