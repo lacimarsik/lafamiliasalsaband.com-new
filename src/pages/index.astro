@@ -28,6 +28,8 @@ const description =
     <meta property="og:title" content={site.name} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.site} />
+    <meta property="og:image" content={new URL('/og.jpg', Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#120b08" />
   </head>
   <body>

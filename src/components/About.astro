@@ -21,7 +21,7 @@ import duoPhoto from '../assets/photos/duo.png';
           Dominican bachata and cha-cha-cha — traditional songs, popular hits and
           original music. The group brings together musicians from Czechia,
           Slovakia and Italy: young players, dancers and dance teachers, fronted
-          by a duo of lead ladies vocalists.
+          by two lead vocalists.
         </p>
         <p>
           Salsa and bachata dance animations or lessons are part of every
@@ -34,16 +34,14 @@ import duoPhoto from '../assets/photos/duo.png';
           The full orchestra counts up to ten musicians — singers, piano, bass,
           guitar, brass and percussion — and we guarantee at least eight on stage
           at any event. On request we also perform as a smaller ensemble, from
-          duo to septet. La Familia duo — Elinor and Laci — covers popular Latin
-          repertoire for smaller events, including originals from
-          <a href={site.links.elinorAlbum}>Elinor Marsi's album</a>.
+          duo to septet.
         </p>
 
         <dl class="facts">
           <div><dt>On stage</dt><dd>8–10 musicians</dd></div>
           <div><dt>Founded</dt><dd>September 2015</dd></div>
           <div><dt>Performs in</dt><dd>Czechia &amp; Germany</dd></div>
-          <div><dt>Also available</dt><dd>duo → septet</dd></div>
+          <div><dt>Also available</dt><dd>Duo to septet</dd></div>
         </dl>
       </div>
 
@@ -53,13 +51,25 @@ import duoPhoto from '../assets/photos/duo.png';
           widths={[480, 720, 1000]}
           sizes="(max-width: 56rem) 100vw, 40vw"
           alt="The full La Familia Salsa Band lineup"
+          class="band-photo"
         />
-        <Image
-          src={duoPhoto}
-          widths={[480, 700]}
-          sizes="(max-width: 56rem) 100vw, 40vw"
-          alt="La Familia duo — Elinor and Laci"
-        />
+        <div class="duo-card">
+          <Image
+            src={duoPhoto}
+            widths={[480, 700]}
+            sizes="(max-width: 56rem) 45vw, 18vw"
+            alt="La Familia duo — Elinor and Laci"
+            class="duo-photo"
+          />
+          <div class="duo-copy">
+            <p class="duo-label">La Familia duo</p>
+            <p class="duo-names">Elinor &amp; Laci</p>
+            <p class="duo-desc">
+              Popular Latin repertoire for smaller events, including
+              originals from <a href={site.links.elinorAlbum}>Elinor Marsi's album</a>.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -84,8 +94,8 @@ import duoPhoto from '../assets/photos/duo.png';
 
   .facts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1.25rem;
     margin-top: 2.2rem;
     padding-top: 1.8rem;
     border-top: 1px solid var(--line);
@@ -110,16 +120,67 @@ import duoPhoto from '../assets/photos/duo.png';
     gap: 1.25rem;
   }
 
-  .photos :global(img) {
+  .photos :global(.band-photo) {
     width: 100%;
     height: auto;
-    border-radius: 6px;
-    border: 1px solid var(--line);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .duo-card {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.1rem;
+    background: var(--surface);
+    border-radius: var(--radius);
+  }
+
+  .duo-card :global(.duo-photo) {
+    flex-shrink: 0;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .duo-label {
+    font-size: 0.72rem;
+    font-weight: 640;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  .duo-names {
+    margin-top: 0.15rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+  }
+
+  .duo-desc {
+    margin-top: 0.35rem;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--cream-faint);
   }
 
   @media (max-width: 56rem) {
     .grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 26rem) {
+    .facts {
+      grid-template-columns: 1fr;
+    }
+
+    .duo-card {
+      flex-direction: column;
+      text-align: center;
     }
   }
 </style>
