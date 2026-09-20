@@ -38,8 +38,10 @@ const riders = [
 
       <div class="card card--contact">
         <span class="kind">Production contact</span>
-        <span class="title">{site.phoneOrganization}</span>
-        <span class="hint">organization · <a href={`tel:${site.phoneBandleader.replaceAll(' ', '')}`}>{site.phoneBandleader}</a> bandleader</span>
+        <a class="title" href={`tel:${site.phoneOrganization.replaceAll(' ', '')}`}>{site.phoneOrganization}</a>
+        <span class="hint">Organization</span>
+        <a class="title title--small" href={`tel:${site.phoneBandleader.replaceAll(' ', '')}`}>{site.phoneBandleader}</a>
+        <span class="hint">Bandleader</span>
       </div>
     </div>
   </div>
@@ -59,15 +61,14 @@ const riders = [
     gap: 0.4rem;
     padding: 1.4rem 1.5rem;
     background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: var(--radius);
     text-decoration: none;
     color: var(--cream);
-    transition: border-color 150ms ease, transform 150ms ease;
+    transition: background 150ms ease, transform 150ms ease;
   }
 
   a.card:hover {
-    border-color: var(--brass);
+    background: var(--surface-hi);
     transform: translateY(-2px);
     color: var(--cream);
   }
@@ -83,6 +84,25 @@ const riders = [
   .title {
     font-family: var(--font-display);
     font-size: 1.3rem;
+    text-decoration: none;
+    color: var(--cream);
+  }
+
+  .card--contact .title {
+    margin-top: 0.2rem;
+  }
+
+  .card--contact .title--small {
+    font-size: 1.05rem;
+    margin-top: 0.4rem;
+  }
+
+  .card--contact .hint {
+    margin-top: -0.25rem;
+  }
+
+  .title:hover {
+    color: var(--brass-hi);
   }
 
   .hint {

@@ -15,24 +15,32 @@ const { id, title, large = false } = Astro.props;
 const thumb = `https://i.ytimg.com/vi/${id}/${large ? 'maxresdefault' : 'hqdefault'}.jpg`;
 ---
 
-<button class="facade" data-youtube-id={id} data-title={title}>
-  <img src={thumb} alt="" loading="lazy" />
-  <span class="badge" aria-hidden="true">
-    <svg viewBox="0 0 24 24" width="22" height="22">
-      <path d="M8 5v14l11-7z" fill="currentColor" />
-    </svg>
-  </span>
-  <span class="label">{title}</span>
-</button>
+<div class="video-tile">
+  <button class="facade" data-youtube-id={id} data-title={title}>
+    <img src={thumb} alt="" loading="lazy" />
+    <span class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22">
+        <path d="M8 5v14l11-7z" fill="currentColor" />
+      </svg>
+    </span>
+  </button>
+  <p class="label">{title}</p>
+</div>
 
 <style>
+  .video-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
   .facade {
     position: relative;
     display: block;
     width: 100%;
     aspect-ratio: 16 / 9;
     padding: 0;
-    border: 1px solid var(--line);
+    border: none;
     border-radius: 8px;
     overflow: hidden;
     background: var(--surface);
@@ -75,14 +83,10 @@ const thumb = `https://i.ytimg.com/vi/${id}/${large ? 'maxresdefault' : 'hqdefau
   }
 
   .label {
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    padding: 1.6rem 1rem 0.8rem;
     font-size: 0.9rem;
     font-weight: 560;
-    color: var(--cream);
-    background: linear-gradient(to top, rgba(18, 11, 8, 0.92), transparent);
+    line-height: 1.35;
+    color: var(--cream-dim);
   }
 </style>
 

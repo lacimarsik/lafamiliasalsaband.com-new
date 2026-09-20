@@ -14,34 +14,42 @@ import { site } from '../data/site';
       </p>
     </div>
 
-    <div class="player" data-player>
-      <button class="play" data-play aria-label="Play Wake Up">
-        <svg class="icon-play" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-          <path d="M8 5v14l11-7z" fill="currentColor" />
-        </svg>
-        <svg class="icon-pause" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-          <path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor" />
-        </svg>
-      </button>
-
-      <div class="meta">
-        <p class="track">Wake Up</p>
-        <p class="artist">La Familia Salsa Band</p>
-        <input
-          class="seek"
-          data-seek
-          type="range"
-          min="0"
-          max="100"
-          value="0"
-          step="0.1"
-          aria-label="Seek within Wake Up"
-        />
+    <div class="release">
+      <div class="cover" aria-hidden="true">
+        <span class="cover-ring"></span>
+        <span class="cover-ring cover-ring--mid"></span>
+        <span class="cover-ring cover-ring--core"></span>
       </div>
 
-      <p class="time"><span data-current>0:00</span> / <span data-duration>–:––</span></p>
+      <div class="player" data-player>
+        <button class="play" data-play aria-label="Play Wake Up">
+          <svg class="icon-play" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+            <path d="M8 5v14l11-7z" fill="currentColor" />
+          </svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+            <path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor" />
+          </svg>
+        </button>
 
-      <audio data-audio src="/audio/wake-up.mp3" preload="metadata"></audio>
+        <div class="meta">
+          <p class="track">Wake Up</p>
+          <p class="artist">La Familia Salsa Band</p>
+          <input
+            class="seek"
+            data-seek
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            step="0.1"
+            aria-label="Seek within Wake Up"
+          />
+        </div>
+
+        <p class="time"><span data-current>0:00</span> / <span data-duration>–:––</span></p>
+
+        <audio data-audio src="/audio/wake-up.mp3" preload="metadata"></audio>
+      </div>
     </div>
   </div>
 </section>
@@ -96,14 +104,57 @@ import { site } from '../data/site';
 </script>
 
 <style>
+  .release {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    max-width: 44rem;
+  }
+
+  .cover {
+    position: relative;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: var(--radius);
+    background: linear-gradient(155deg, var(--surface-hi), var(--ink-soft));
+    overflow: hidden;
+  }
+
+  .cover-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--line-hi);
+  }
+
+  .cover-ring:not(.cover-ring--mid):not(.cover-ring--core) {
+    width: 130%;
+    height: 130%;
+  }
+
+  .cover-ring--mid {
+    width: 85%;
+    height: 85%;
+    border-color: var(--line);
+  }
+
+  .cover-ring--core {
+    width: 0.7rem;
+    height: 0.7rem;
+    background: var(--brass);
+    border: none;
+  }
+
   .player {
     display: flex;
     align-items: center;
     gap: 1.4rem;
-    max-width: 40rem;
+    flex: 1;
+    min-width: 0;
     padding: 1.4rem 1.6rem;
     background: var(--surface);
-    border: 1px solid var(--line);
     border-radius: 10px;
   }
 
@@ -190,8 +241,14 @@ import { site } from '../data/site';
   }
 
   @media (max-width: 40rem) {
+    .release {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .player {
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .time {

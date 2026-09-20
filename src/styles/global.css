@@ -5,10 +5,13 @@
   --ink: #120b08;
   --ink-soft: #1b110c;
   --surface: #251710;
+  --surface-hi: #2e1c13;
   --line: rgba(217, 164, 65, 0.16);
+  --line-hi: rgba(217, 164, 65, 0.3);
   --brass: #d9a441;
   --brass-hi: #f0c36b;
-  --rum: #a8422f;
+  --rum: #c0523a;
+  --rum-dim: rgba(192, 82, 58, 0.14);
   --cream: #f5ebda;
   --cream-dim: rgba(245, 235, 218, 0.68);
   --cream-faint: rgba(245, 235, 218, 0.4);
@@ -18,7 +21,8 @@
 
   --measure: 62ch;
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --section-pad: clamp(4.5rem, 10vw, 8rem);
+  --section-pad: clamp(4rem, 9vw, 7rem);
+  --radius: 14px;
 }
 
 * {
